@@ -1,15 +1,47 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace TennisKana001
 {
     [TestFixture]
-    public class Tests
+    public class TennisTests
     {
-        [Test]
-        public void Test1()
+        [SetUp]
+        public void SetUp()
         {
-            Assert.True(true);
+            _tennis = new Tennis();
+        }
+
+        private Tennis _tennis;
+
+
+        [Test]
+        public void LoveAll()
+        {
+            ScoreShouldBe("Love All");
+        }
+
+        [Test]
+        public void FifteenLove()
+        {
+            GivenFirstPlayerScore(1);
+            ScoreShouldBe("Fifteen Love");
+        }
+
+        [Test]
+        public void ThirtyLove()
+        {
+            GivenFirstPlayerScore(2);
+            ScoreShouldBe("Thirty Love");
+        }
+
+        private void GivenFirstPlayerScore(int times)
+        {
+            for (var i = 0; i < times; i++) _tennis.FirstPlayerScore();
+        }
+
+        private void ScoreShouldBe(string expected)
+        {
+            Assert.AreEqual(expected, _tennis.Score());
         }
     }
 }
